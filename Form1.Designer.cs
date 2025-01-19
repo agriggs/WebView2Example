@@ -86,7 +86,22 @@
 
         private void GoButton_Click(object sender, EventArgs e)
         {
-            webView21.Source = new Uri(addressBar.Text);
+            // check that the address bar is text starts with http or https
+            if (!addressBar.Text.StartsWith("http://") && !addressBar.Text.StartsWith("https://"))
+            {
+                MessageBox.Show($"Only http and https allowed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    webView21.Source = new Uri(addressBar.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Exception: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void AddressBar_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
