@@ -23,15 +23,26 @@ namespace WebView2Example
             }
 
             var userDataFolder = GetUserDataFolder();
-            userDataFolder += "\\WebView2Example"; 
+            userDataFolder += "\\WebView2Example";
 
             Debug.WriteLine($"User data folder: {userDataFolder}");
 
-            var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, new CoreWebView2EnvironmentOptions
-            {                
-                AllowSingleSignOnUsingOSPrimaryAccount = allowDomainSSO
-            });
+            var customScheme = new CoreWebView2CustomSchemeRegistration("args")
+            {
+                HasAuthorityComponent = true
+            };
 
+            var options = new CoreWebView2EnvironmentOptions(
+                null,
+                "en",
+                null,
+                allowDomainSSO,
+                [customScheme]
+            );
+            
+            var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, options);
+            
+       
             await webView21.EnsureCoreWebView2Async(env);
 
             string? startURL = ConfigurationManager.AppSettings["StartURL"];
@@ -51,7 +62,7 @@ namespace WebView2Example
 
             addressBar.Text = startURL; // Add this line to set the address bar value
             webView21.CoreWebView2.Navigate(startURL);
-        }      
+        }
         private static string GetUserDataFolder()
         {
             string usersDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
