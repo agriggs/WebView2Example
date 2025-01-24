@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Diagnostics;
 using Microsoft.Web.WebView2.Core;
 
 namespace WebView2Example
@@ -21,7 +22,6 @@ namespace WebView2Example
                 allowDomainSSO = true; // or false, depending on your desired default behavior
             }
 
-
             var env = await CoreWebView2Environment.CreateAsync(null, null, new CoreWebView2EnvironmentOptions
             {
                 AllowSingleSignOnUsingOSPrimaryAccount = allowDomainSSO
@@ -35,9 +35,18 @@ namespace WebView2Example
                 startURL = "http://localhost:5000";
             }
 
+            if (allowDomainSSO)
+            {
+                ssoIndicatorLabel.Text = "SSO Enabled";
+            }
+            else
+            {
+                ssoIndicatorLabel.Text = "SSO Disabled";
+            }
+
             addressBar.Text = startURL; // Add this line to set the address bar value
             webView21.CoreWebView2.Navigate(startURL);
-        }
+        }      
     }
 }
 

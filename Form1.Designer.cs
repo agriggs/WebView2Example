@@ -7,6 +7,7 @@
         private System.Windows.Forms.TextBox addressBar;
         private System.Windows.Forms.Button goButton;
         private System.Windows.Forms.Panel addressPanel;
+        private System.Windows.Forms.Label ssoIndicatorLabel; // Added declaration for SSO indicator
 
         protected override void Dispose(bool disposing)
         {
@@ -23,6 +24,7 @@
             addressBar = new TextBox();
             goButton = new Button();
             addressPanel = new Panel();
+            ssoIndicatorLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             addressPanel.SuspendLayout();
             SuspendLayout();
@@ -35,7 +37,7 @@
             webView21.Dock = DockStyle.Fill;
             webView21.Location = new Point(0, 30);
             webView21.Name = "webView21";
-            webView21.Size = new Size(800, 420);
+            webView21.Size = new Size(800, 400);
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
             // 
@@ -69,6 +71,15 @@
             addressPanel.Size = new Size(800, 30);
             addressPanel.TabIndex = 1;
             // 
+            // ssoIndicatorLabel
+            // 
+            ssoIndicatorLabel.Dock = DockStyle.Bottom;
+            ssoIndicatorLabel.Location = new Point(0, 430);
+            ssoIndicatorLabel.Name = "ssoIndicatorLabel";
+            ssoIndicatorLabel.Size = new Size(800, 20);
+            ssoIndicatorLabel.TabIndex = 3;
+            ssoIndicatorLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -76,6 +87,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(webView21);
             Controls.Add(addressPanel);
+            Controls.Add(ssoIndicatorLabel);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
