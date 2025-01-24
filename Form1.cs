@@ -22,8 +22,13 @@ namespace WebView2Example
                 allowDomainSSO = true; // or false, depending on your desired default behavior
             }
 
-            var env = await CoreWebView2Environment.CreateAsync(null, null, new CoreWebView2EnvironmentOptions
-            {
+            var userDataFolder = GetUserDataFolder();
+            userDataFolder += "\\WebView2Example"; 
+
+            Debug.WriteLine($"User data folder: {userDataFolder}");
+
+            var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, new CoreWebView2EnvironmentOptions
+            {                
                 AllowSingleSignOnUsingOSPrimaryAccount = allowDomainSSO
             });
 
@@ -47,6 +52,11 @@ namespace WebView2Example
             addressBar.Text = startURL; // Add this line to set the address bar value
             webView21.CoreWebView2.Navigate(startURL);
         }      
+        private static string GetUserDataFolder()
+        {
+            string usersDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return usersDataFolder;
+        }
     }
 }
 
